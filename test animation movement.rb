@@ -1,6 +1,7 @@
 Shoes.app do
   fill blue
-  @player=rect :top => 50, :width => 50, :height=> 50
+  # @player=rect :top => 50, :width => 50, :height=> 50
+    @player= image 'skeleton1.png', :top => 50, :width => 50, :height=> 50
   # @info = para 'hi'
   
   # keypress to figure out what direction to move
@@ -8,22 +9,27 @@ Shoes.app do
   @direction2=para "0"
   @horizontal=0
   @vertical=0
+  animate(1) do
+    new_top-=5
+  end
   keypress do |direct|
     if direct == :right
       # @direction.replace "#{direct}"
-      @horizontal += 10
+      @horizontal += 1
+      @player.replace = image 'skeleton1.png', :top => 50, :width => 50, :height=> 50
     end
     if direct == :left
       # @direction.replace "#{direct}"
-      @horizontal-=10
+      @horizontal-= 1
+      @player.replace = image 'skeleton2.png', :top => 50, :width => 50, :height=> 50
     end
     if direct == :down
       # @direction.replace "#{direct}"
-      @vertical+=10
+      @vertical+= 1
     end
     if direct == :up
       # @direction.replace "#{direct}"
-      @vertical-=10
+      @vertical-= 1
     end
     @direction.replace "#{@horizontal}"
     @direction2.replace "#{@vertical}"
@@ -31,7 +37,7 @@ Shoes.app do
   
   
   # animate - move based on our current direction
-  animate do |frame|
+  animate(30) do |frame|
     new_left=@player.left+@horizontal
     new_top=@player.top+@vertical   
     @player.move(new_left, new_top)
